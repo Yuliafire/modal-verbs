@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modal Verbs Master — Can, Could, May, Might, Should, Must, Have to</title>
+<style>
+:root{--bg:#0b1120;--card:#151e31;--card2:#1f2a3f;--accent:#38bdf8;--good:#22c55e;--bad:#ef4444;--text:#e5edf7;--muted:#9fb0c7;--gold:#fbbf24}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(1200px 600px at 80% -10%,#1e3a8a55,transparent),linear-gradient(160deg,#0b1120,#111827 55%,#241a4d);color:var(--text);min-height:100vh}
+.wrap{max-width:1080px;margin:auto;padding:18px}
+header{text-align:center;padding:26px 8px 10px}
+h1{margin:0;font-size:clamp(1.8rem,5vw,3rem);background:linear-gradient(90deg,#38bdf8,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted)}
+.card{background:rgba(21,30,49,.92);border:1px solid #ffffff14;border-radius:20px;padding:20px;margin:18px 0;box-shadow:0 18px 45px #0007}
+h2{margin:0 0 10px;color:#7dd3fc}
+h3{color:var(--gold);margin:0 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.verb{background:var(--card2);border:1px solid #ffffff12;border-radius:16px;padding:16px;transition:.2s}
+.verb:hover{transform:translateY(-3px);border-color:#38bdf880}
+.meaning{color:var(--muted);font-style:italic;margin:6px 0 12px}
+.ex{background:#0f172a;border-left:4px solid var(--accent);padding:10px 12px;border-radius:10px;margin:8px 0}
+.en{font-weight:700}
+.ru{color:var(--muted)}
+button{font:inherit;border:0;border-radius:12px;padding:12px 16px;background:var(--accent);color:#06283d;font-weight:800;cursor:pointer}
+button:hover{filter:brightness(1.12)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.secondary{background:#475569;color:#fff}
+.opt{display:block;width:100%;text-align:left;background:var(--card2);color:var(--text);border:2px solid transparent;margin:8px 0}
+.opt.correct{border-color:var(--good);background:#22c55e22}
+.opt.wrong{border-color:var(--bad);background:#ef444422}
+.q{font-size:1.15rem;font-weight:800;margin:8px 0}
+.feedback{min-height:64px;margin-top:12px;padding:12px;border-radius:12px;font-weight:700}
+.good{background:#22c55e1f;border:1px solid var(--good)}
+.bad{background:#ef44441f;border:1px solid var(--bad)}
+.bar{height:12px;background:#334155;border-radius:99px;overflow:hidden;margin:12px 0}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#38bdf8);transition:.35s}
+.row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.badge{background:#0ea5e9;color:#04283d;padding:6px 12px;border-radius:99px;font-weight:900}
+.hidden{display:none}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{background:#334155;color:#e2e8f0;border-radius:99px;padding:9px 14px;font-weight:700}
+.tab.active{background:var(--accent);color:#06283d}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{border:1px solid #ffffff1f;padding:9px;text-align:left;vertical-align:top}
+th{background:#334155}
+@media(max-width:620px){.wrap{padding:10px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>🎯 Modal Verbs Master</h1>
+<p class="sub">Can • Could • May • Might • Should • Must • Have to — many examples, Russian translations, and a big game.</p>
+</header>
+
+<section class="card">
+<h2>📖 The simple rule</h2>
+<p><b>Subject + modal verb + base verb</b>. Do <b>not</b> use <code>to</code> after <code>can, could, may, might, should, must</code>.</p>
+<p class="ru"><b>Подлежащее + модальный глагол + глагол в начальной форме.</b> После can, could, may, might, should, must не ставится <code>to</code>.</p>
+<div class="ex"><span class="en">✅ She can swim.</span><br><span class="ru">Она умеет плавать.</span></div>
+<div class="ex"><span class="en">❌ She can to swim.</span><br><span class="ru">Ошибка: после can не нужно to.</span></div>
+<p><b>Exception:</b> <code>have to</code> uses <code>to</code>: <b>I have to go.</b> <span class="ru">Исключение: после have to нужно to.</span></p>
+</section>
+
+<section class="card">
+<h2>🔍 Choose a modal verb</h2>
+<div class="tabs" id="tabs"></div>
+<div id="examples"></div>
+</section>
+
+<section class="card">
+<h2>📚 All examples in one table</h2>
+<div style="overflow-x:auto"><table id="table"></table></div>
+</section>
+
+<section class="card">
+<h2>🎮 Big Game: 20 Questions</h2>
+<div class="row">
+<div>Question <span id="qNum">1</span> / <span id="qTotal">20</span></div>
+<div>Score: <span id="score" class="badge">0</span></div>
+<div>🔥 Streak: <span id="streak" style="color:var(--gold);font-weight:900">0</span></div>
+</div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<p class="q" id="question"></p>
+<p class="ru" id="translation"></p>
+<div id="options"></div>
+<div class="feedback" id="feedback"></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+<button id="nextBtn" class="hidden">Next question →</button>
+<button id="restartBtn" class="secondary hidden">Play again 🔄</button>
+</div>
+</section>
+
+<section class="card">
+<h2>🏆 Result</h2>
+<p id="resultEn">Finish the game to see your result!</p>
+<p class="ru" id="resultRu">Пройди игру, чтобы увидеть результат!</p>
+</section>
+</div>
+
+<script>
+const data={
+can:{title:"CAN",ru:"могу, умею, можно",use:"Ability, permission, requests, possibilities",useRu:"Умение, разрешение, просьба, возможность",
+examples:[
+["I can speak English.","Я умею говорить по-английски."],
+["She can drive a car.","Она умеет водить машину."],
+["They can play football very well.","Они очень хорошо умеют играть в футбол."],
+["Can you help me, please?","Ты можешь помочь мне, пожалуйста?"],
+["Can I sit here?","Можно мне сесть здесь?"],
+["You can use my phone.","Ты можешь воспользоваться моим телефоном."],
+["This app can translate texts.","Это приложение может переводить тексты."],
+["Dogs can smell very well.","Собаки очень хорошо чувствуют запахи."],
+["I can’t hear you. The music is too loud.","Я не могу тебя слышать. Музыка слишком громкая."],
+["Can we start the lesson now?","Можно нам начать урок сейчас?"]
+]},
+could:{title:"COULD",ru:"мог, умел, мог бы",use:"Past ability, polite requests, possibilities",useRu:"Умение в прошлом, вежливая просьба, вероятность",
+examples:[
+["I could read when I was five.","Я умел читать, когда мне было пять лет."],
+["She could swim when she was young.","Она умела плавать, когда была молодой."],
+["Could you open the window, please?","Не мог бы ты открыть окно, пожалуйста?"],
+["Could I ask you a question?","Можно задать вам вопрос?"],
+["Could you speak more slowly, please?","Не могли бы вы говорить медленнее, пожалуйста?"],
+["When I was a child, I could play outside all day.","В детстве я мог играть на улице весь день."],
+["It could be expensive.","Это может быть дорого."],
+["He could be at home now.","Возможно, он сейчас дома."],
+["I couldn’t understand the teacher yesterday.","Вчера я не мог понять учителя."],
+["Could you send me the file?","Не мог бы ты отправить мне файл?"]
+]},
+may:{title:"MAY",ru:"можно, возможно",use:"Formal permission and possibility",useRu:"Формальное разрешение и вероятность",
+examples:[
+["May I come in?","Можно войти?"],
+["May I ask a question?","Можно задать вопрос?"],
+["You may leave early today.","Вы можете уйти сегодня пораньше."],
+["Students may use dictionaries during the test.","Студентам разрешается пользоваться словарями во время теста."],
+["It may rain tomorrow.","Завтра может пойти дождь."],
+["She may know the answer.","Возможно, она знает ответ."],
+["There may be a problem with the website.","Возможно, есть проблема с сайтом."],
+["May I have your attention, please?","Можно привлечь ваше внимание, пожалуйста?"],
+["He may be busy at the moment.","Возможно, он сейчас занят."],
+["You may not eat in the library.","В библиотеке нельзя есть."]
+]},
+might:{title:"MIGHT",ru:"возможно, может быть",use:"Smaller possibility",useRu:"Меньшая вероятность",
+examples:[
+["It might snow tonight.","Сегодня вечером, возможно, выпадет снег."],
+["I might go to the gym later.","Возможно, я пойду в спортзал позже."],
+["She might be at work.","Возможно, она на работе."],
+["They might come to the party.","Они, возможно, придут на вечеринку."],
+["This might be a good idea.","Это может быть хорошей идеей."],
+["He might not like the film.","Возможно, ему не понравится фильм."],
+["We might need more time.","Нам может понадобиться больше времени."],
+["I might buy a new laptop next month.","Возможно, я куплю новый ноутбук в следующем месяце."],
+["The train might be late.","Поезд может опоздать."],
+["She might have forgotten the meeting.","Возможно, она забыла о встрече."]
+]},
+should:{title:"SHOULD",ru:"следует, стоит, должен бы",use:"Advice, recommendations, expectations",useRu:"Совет, рекомендация, ожидание",
+examples:[
+["You should drink more water.","Тебе следует пить больше воды."],
+["You should sleep eight hours a day.","Тебе стоит спать восемь часов в день."],
+["He should see a doctor.","Ему следует обратиться к врачу."],
+["We should leave now.","Нам стоит уйти сейчас."],
+["Students should do homework every day.","Студентам следует делать домашнее задание каждый день."],
+["You shouldn’t eat too much sugar.","Не стоит есть слишком много сахара."],
+["She should practise English every day.","Ей стоит практиковать английский каждый день."],
+["You should check your answers before you finish.","Тебе следует проверить ответы перед завершением."],
+["I think you should apply for this job.","Я думаю, тебе стоит подать заявку на эту работу."],
+["The train should arrive at 6 p.m.","Поезд должен прибыть в 18:00."]
+]},
+must:{title:"MUST",ru:"должен, обязан, наверняка",use:"Strong obligation, rules, strong probability",useRu:"Сильная необходимость, правила, уверенность",
+examples:[
+["You must wear a seatbelt.","Ты должен пристегнуть ремень безопасности."],
+["Students must not use phones during the exam.","Студентам нельзя пользоваться телефонами во время экзамена."],
+["You must stop at a red light.","Нужно остановиться на красный свет."],
+["I must finish this project today.","Я должен закончить этот проект сегодня."],
+["You must be tired after the gym.","Ты, наверное, устал после спортзала."],
+["She must be at home; her car is outside.","Она, должно быть, дома; её машина снаружи."],
+["Visitors must show their passports.","Посетители должны показать паспорта."],
+["You must not smoke here.","Здесь запрещено курить."],
+["We must respect other people.","Мы должны уважать других людей."],
+["He must know the answer; he is an expert.","Он наверняка знает ответ; он эксперт."]
+]},
+haveto:{title:"HAVE TO",ru:"приходится, нужно, должен",use:"Necessary because of rules, work, or situation",useRu:"Необходимость из-за правил, работы или ситуации",
+examples:[
+["I have to work tomorrow.","Мне нужно работать завтра."],
+["She has to study for the exam.","Ей нужно готовиться к экзамену."],
+["We have to leave at 7 a.m.","Нам нужно уехать в 7 утра."],
+["He has to wear a uniform at work.","Ему приходится носить форму на работе."],
+["You have to pay before you enter.","Нужно заплатить перед входом."],
+["I don’t have to work on Sunday.","Мне не нужно работать в воскресенье."],
+["Do you have to get up early?","Тебе нужно вставать рано?"],
+["They had to wait for two hours.","Им пришлось ждать два часа."],
+["She will have to take the test again.","Ей придётся сдать тест снова."],
+["I have to send this email before 5 p.m.","Мне нужно отправить это письмо до 17:00."]
+]}};
+
+const questions=[
+{q:"I ___ speak three languages.",ru:"Я умею говорить на трёх языках.",o:["can","must","should"],a:"can",w:"“Can” shows ability. / “Can” выражает умение."},
+{q:"___ you help me with this exercise, please?",ru:"Не мог бы ты помочь мне с этим упражнением, пожалуйста?",o:["Could","Must","Have to"],a:"Could",w:"“Could” makes a polite request. / “Could” делает просьбу вежливой."},
+{q:"___ I use your pen?",ru:"Можно мне воспользоваться твоей ручкой?",o:["May","Should","Might"],a:"May",w:"“May” asks for permission. / “May” используется для разрешения."},
+{q:"It ___ be cold tomorrow, but I’m not sure.",ru:"Завтра, возможно, будет холодно, но я не уверен.",o:["might","must","have to"],a:"might",w:"“Might” shows a smaller possibility. / “Might” показывает меньшую вероятность."},
+{q:"You look ill. You ___ see a doctor.",ru:"Ты выглядишь больным. Тебе следует обратиться к врачу.",o:["should","can","may"],a:"should",w:"“Should” gives advice. / “Should” даёт совет."},
+{q:"You ___ wear a helmet when you ride a motorbike.",ru:"Ты обязан носить шлем, когда едешь на мотоцикле.",o:["must","might","could"],a:"must",w:"“Must” expresses a strong rule. / “Must” выражает строгое правило."},
+{q:"I ___ go to work every weekday.",ru:"Мне нужно ходить на работу каждый будний день.",o:["have to","may","might"],a:"have to",w:"“Have to” shows necessity from a situation. / “Have to” показывает необходимость из-за ситуации."},
+{q:"She ___ play the piano when she was six.",ru:"Она умела играть на пианино, когда ей было шесть лет.",o:["could","can","must"],a:"could",w:"“Could” is past ability. / “Could” — умение в прошлом."},
+{q:"You ___ smoke in this building.",ru:"В этом здании запрещено курить.",o:["must not","should not","might not"],a:"must not",w:"“Must not” means prohibited. / “Must not” означает запрет."},
+{q:"He ___ be at the office; I saw his car there.",ru:"Он, должно быть, в офисе; я видел там его машину.",o:["must","may","should"],a:"must",w:"“Must” can show a strong logical conclusion. / “Must” может выражать сильный логический вывод."},
+{q:"___ I have some water, please?",ru:"Можно мне немного воды, пожалуйста?",o:["May","Must","Have to"],a:"May",w:"“May” is polite permission. / “May” — вежливое разрешение."},
+{q:"We ___ be careful with our passwords.",ru:"Нам следует быть осторожными с паролями.",o:["should","can","might"],a:"should",w:"“Should” gives good advice. / “Should” даёт полезный совет."},
+{q:"I ___ finish this report before the meeting.",ru:"Мне нужно закончить этот отчёт до встречи.",o:["have to","could","might"],a:"have to",w:"“Have to” expresses external necessity. / “Have to” выражает внешнюю необходимость."},
+{q:"When I was young, I ___ run very fast.",ru:"Когда я был молодым, я мог бегать очень быстро.",o:["could","can","must"],a:"could",w:"“Could” describes ability in the past. / “Could” описывает умение в прошлом."},
+{q:"She ___ know the answer, but I’m not certain.",ru:"Возможно, она знает ответ, но я не уверен.",o:["might","must","have to"],a:"might",w:"“Might” means possibility, not certainty. / “Might” означает вероятность, а не уверенность."},
+{q:"You ___ park here. It is forbidden.",ru:"Здесь нельзя парковаться. Это запрещено.",o:["must not","don’t have to","should not"],a:"must not",w:"“Must not” = prohibited. / “Must not” = запрещено."},
+{q:"You ___ pay for children under five.",ru:"Детям до пяти лет не нужно платить.",o:["don’t have to","must not","shouldn’t"],a:"don’t have to",w:"“Don’t have to” = it is not necessary. / “Don’t have to” = нет необходимости."},
+{q:"___ you pass me the salt, please?",ru:"Не мог бы ты передать мне соль, пожалуйста?",o:["Could","Must","Should"],a:"Could",w:"“Could” is a polite request. / “Could” — вежливая просьба."},
+{q:"Students ___ submit homework before Friday.",ru:"Студенты должны сдать домашнее задание до пятницы.",o:["must","might","could"],a:"must",w:"“Must” shows a rule or strong obligation. / “Must” показывает правило или сильную обязанность."},
+{q:"I think you ___ practise English for 20 minutes every day.",ru:"Я думаю, тебе стоит практиковать английский по 20 минут каждый день.",o:["should","must","have to"],a:"should",w:"“Should” is advice, not a strict rule. / “Should” — совет, а не строгое правило."}
+];
+
+let cur="can",i=0,score=0,streak=0,answered=false;
+const $=id=>document.getElementById(id);
+
+function renderTabs(){
+ $("tabs").innerHTML=Object.keys(data).map(k=>`<button class="tab ${k===cur?"active":""}" onclick="show('${k}')">${data[k].title}</button>`).join("");
+}
+function show(k){
+ cur=k;renderTabs();
+ const d=data[k];
+ $("examples").innerHTML=`
+ <div class="verb"><h3>${d.title} — <span class="ru">${d.ru}</span></h3>
+ <p><b>${d.use}</b><br><span class="ru">${d.useRu}</span></p></div>
+ ${d.examples.map(e=>`<div class="ex"><span class="en">${e[0]}</span><br><span class="ru">${e[1]}</span>
+ <button style="margin-top:8px;padding:6px 10px;font-size:.8rem" onclick="speak('${e[0].replace(/'/g,"\\'")}')">🔊 Listen</button></div>`).join("")}`;
+}
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";u.rate=.92;speechSynthesis.speak(u);}catch(e){}}
+
+function renderTable(){
+ let rows=Object.values(data).map(d=>`<tr><td><b>${d.title}</b><br><span class="ru">${d.ru}</span></td><td>${d.use}<br><span class="ru">${d.useRu}</span></td><td>${d.examples.slice(0,5).map(e=>`${e[0]}<br><span class="ru">${e[1]}</span>`).join("<hr style='border-color:#ffffff18'>")}</td></tr>`).join("");
+ $("table").innerHTML=`<tr><th>Modal verb</th><th>Use</th><th>Examples</th></tr>${rows}`;
+}
+
+function loadQ(){
+ answered=false;
+ const q=questions[i];
+ $("qNum").textContent=i+1;
+ $("qTotal").textContent=questions.length;
+ $("question").textContent=q.q;
+ $("translation").textContent=q.ru;
+ $("feedback").className="feedback";
+ $("feedback").textContent="";
+ $("nextBtn").classList.add("hidden");
+ $("options").innerHTML=q.o.map(x=>`<button class="opt" onclick="check('${x}',this)">${x}</button>`).join("");
+ $("fill").style.width=(i/questions.length*100)+"%";
+}
+function check(a,btn){
+ if(answered)return;answered=true;
+ const q=questions[i],btns=[...document.querySelectorAll(".opt")];
+ btns.forEach(b=>b.disabled=true);
+ if(a===q.a){btn.classList.add("correct");score++;streak++;
+  $("feedback").className="feedback good";
+  $("feedback").innerHTML=`✅ Correct! ${q.w}`;speak("Correct!");}
+ else{btn.classList.add("wrong");streak=0;
+  btns.find(b=>b.textContent===q.a).classList.add("correct");
+  $("feedback").className="feedback bad";
+  $("feedback").innerHTML=`❌ The correct answer is <b>${q.a}</b>. ${q.w}`;speak("Not correct");}
+ $("score").textContent=score;$("streak").textContent=streak;
+ $("nextBtn").classList.remove("hidden");
+ $("nextBtn").textContent=i===questions.length-1?"See result 🏁":"Next question →";
+}
+$("nextBtn").onclick=()=>{if(i<questions.length-1){i++;loadQ();}else finish();};
+function finish(){
+ $("fill").style.width="100%";
+ const p=Math.round(score/questions.length*100);
+ let en,ru;
+ if(p>=90){en="🌟 Excellent! You really understand modal verbs!";ru="🌟 Отлично! Ты действительно понимаешь модальные глаголы!";}
+ else if(p>=70){en="👏 Great job! Review your mistakes and try again.";ru="👏 Отличная работа! Повтори ошибки и попробуй снова.";}
+ else if(p>=50){en="🙂 Good progress! Read the examples again.";ru="🙂 Хороший прогресс! Прочитай примеры ещё раз.";}
+ else{en="💪 Keep practising! Read one modal verb section every day.";ru="💪 Продолжай практиковаться! Читай по одному разделу с модальным глаголом каждый день.";}
+ $("resultEn").innerHTML=`You scored <b>${score}/${questions.length}</b> (${p}%). ${en}`;
+ $("resultRu").textContent=`Твой результат: ${score}/${questions.length} (${p}%). ${ru}`;
+ $("nextBtn").classList.add("hidden");$("restartBtn").classList.remove("hidden");speak("Well done!");
+}
+$("restartBtn").onclick=()=>{i=0;score=0;streak=0;$("score").textContent=0;$("streak").textContent=0;$("restartBtn").classList.add("hidden");$("nextBtn").textContent="Next question →";loadQ();};
+
+renderTabs();show("can");renderTable();loadQ();
+</script>
+</body>
+</html>
